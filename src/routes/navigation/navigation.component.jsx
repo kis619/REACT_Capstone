@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import {ReactComponent as CrwnLogo} from '../../assets/crown.svg'
 import './navigation.styles.scss'
 
-const NavItem = ({ title, route }) => {
+const NavLink = ({ title, route }) => {
   return (
     <Link className="nav-link" to={route}>
       {title}
@@ -19,7 +19,8 @@ const Navigation = () => {
           <CrwnLogo/>
         </Link>
         <div className="nav-links-container">
-          <NavItem title="SHOP" route="/shop" />
+          <NavLink title="SHOP" route="/shop" />
+          <NavLink title="SIGN-IN" route="/sign-in" />
         </div>
       </div>
       <Outlet />
