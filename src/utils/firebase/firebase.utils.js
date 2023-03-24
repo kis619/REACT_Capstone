@@ -4,6 +4,9 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
@@ -32,7 +35,10 @@ export const signInWithGooglePopup = () =>
 
 export const db = getFirestore();
 
-export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {
+export const createUserDocumentFromAuth = async (
+  userAuth,
+  additionalInformation = {}
+) => {
   if (!userAuth) return;
   const userDocRef = doc(db, "users", userAuth.uid);
   const userSnapshot = await getDoc(userDocRef);
@@ -46,7 +52,7 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
         displayName,
         email,
         createdAt,
-        ...additionalInformation
+        ...additionalInformation,
       });
     } catch (error) {
       console.log("error creating theuser", error.message);
@@ -58,4 +64,22 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
   return await createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+
+  try {
+    return await signInWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    if (error.code === "auth/wrong-password") alert("Wrong passsword ");
+    else if (error.code === "auth/user-not-found") alert("Wrong passsword ");
+  }
+};
+
+export const signOutUser = async () => await signOut(auth);
+
+export const onAuthStateChangedListener = (callback) => {
+  if (callback === null) return;
+  onAuthStateChanged(auth, callback);
 };
