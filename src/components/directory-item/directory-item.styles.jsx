@@ -1,5 +1,13 @@
 import styled from "styled-components";
 
+export const BackgroundImage = styled.div`
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-image: ${({ imageUrl }) => `url(${imageUrl})`};
+`;
+
 export const Body = styled.div`
   height: 90px;
   padding: 0 25px;
@@ -23,14 +31,6 @@ export const Body = styled.div`
     font-weight: lighter;
     font-size: 16px;
   }
-`;
-
-export const BackgroundImage = styled.div`
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 `;
 
 export const DirectoryItemContainer = styled.div`
