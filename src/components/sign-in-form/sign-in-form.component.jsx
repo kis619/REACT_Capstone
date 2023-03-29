@@ -1,12 +1,12 @@
-import {  useState } from "react";
-import Button from "../button/button.component";
+import { useState } from "react";
+import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
 import {
   signInAuthUserWithEmailAndPassword,
   signInWithGooglePopup,
-  createUserDocumentFromAuth,
+  // createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
-import "./sign-in-form.styles.scss";
+import { ButtonsContainer, SignUpContainer } from "./sign-in-form.styles";
 
 const defaultFormValues = {
   email: "",
@@ -17,12 +17,12 @@ const SignInForm = () => {
   const [formValues, setFormValues] = useState(defaultFormValues);
   const { email, password } = formValues;
   const logGoogleUser = async () => {
-    const { user } = await signInWithGooglePopup();
+    await signInWithGooglePopup();
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const {user} = await signInAuthUserWithEmailAndPassword(email, password);
+      await signInAuthUserWithEmailAndPassword(email, password);
     } catch (error) {}
   };
 
@@ -31,7 +31,7 @@ const SignInForm = () => {
     setFormValues({ ...formValues, [name]: value });
   };
   return (
-    <div className="sign-up-container ">
+    <SignUpContainer>
       <h2>Have an account?</h2>
       <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
@@ -53,14 +53,18 @@ const SignInForm = () => {
           value={password}
         />
 
-        <div className="buttons-container">
+        <ButtonsContainer>
           <Button type="submit">SIGN IN</Button>
-          <Button type="button" buttonType="google" onClick={logGoogleUser}>
+          <Button
+            type="button"
+            buttonType={BUTTON_TYPE_CLASSES.google}
+            onClick={logGoogleUser}
+          >
             GOOGLE SIGN IN
           </Button>
-        </div>
+        </ButtonsContainer>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };
 

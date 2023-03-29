@@ -1,26 +1,28 @@
 import { useNavigate } from "react-router-dom";
 import ProductCard from "../product-card/product-card.component";
 import { Link } from "react-router-dom";
-import "./category-preview.styles.scss";
+import {
+  CategoryPreviewContainer,
+  Preview,
+  TitleLink,
+} from "./category-preview.styles";
 
 const CategoryPreview = ({ title, products }) => {
   const navigate = useNavigate();
-  const goToCategoryPage = () => {
-    navigate("/");
-  };
+ 
   return (
-    <div className="category-preview-container">
+    <CategoryPreviewContainer>
       <h2>
-        <Link className="title" to={title}>
+        <TitleLink to={title}>
           {title.toUpperCase()}
-        </Link>
+        </TitleLink>
       </h2>
-      <div className="preview">
+      <Preview>
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
-      </div>
-    </div>
+      </Preview>
+    </CategoryPreviewContainer>
   );
 };
 
