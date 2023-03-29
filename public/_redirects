@@ -1,0 +1,3 @@
+# a file specifically for netlify
+# redirects from what the browser requests to what the program serves
+/* /index.html 200 
