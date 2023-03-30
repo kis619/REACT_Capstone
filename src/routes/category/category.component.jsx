@@ -6,12 +6,10 @@ import { selectCategiesMap } from "../../store/categories/categories.selector";
 import "./category.styles.scss";
 
 const Category = () => {
-  console.log("%cRENDER CATEGORY COMPONENT", 'color: green');
   const { category } = useParams();
   const categoriesMap = useSelector(selectCategiesMap);
   const [products, setProducts] = useState(categoriesMap[category]);
   useEffect(() => {
-    console.log("useEffect category component");
     setProducts(categoriesMap[category]);
   }, [category, categoriesMap]);
 
