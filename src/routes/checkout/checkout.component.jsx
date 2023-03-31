@@ -1,39 +1,47 @@
-import { useSelector } from "react-redux";
-import CheckoutItem from "../../components/checkout-item/checkout-item.component";
-import { selectCartItems, selectPriceTotal } from "../../store/cart/cart.selector";
-import "./checkout.styless.scss";
+import { useSelector } from 'react-redux';
 
-const HeaderBlock = ({ name }) => {
-  return (
-    <div className="header-block">
-      <span>{name}</span>
-    </div>
-  );
-};
+import {
+  selectCartItems,
+  selectCartTotal,
+} from '../../store/cart/cart.selector';
 
-const CheckoutHeader = () => {
-  const sections = ["Product", "Description", "Quantity", "Price", "Remove"];
+import CheckoutItem from '../../components/checkout-item/checkout-item.component';
 
-  return (
-    <div className="checkout-header">
-      {sections.map((section, idx) => (
-        <HeaderBlock key={idx} name={section} />
-      ))}
-    </div>
-  );
-};
+import {
+  CheckoutContainer,
+  CheckoutHeader,
+  HeaderBlock,
+  Total,
+} from './checkout.styles';
 
 const Checkout = () => {
   const cartItems = useSelector(selectCartItems);
-  const priceTotal = useSelector(selectPriceTotal);
+  const cartTotal = useSelector(selectCartTotal);
+
   return (
-    <div className="checkout-container">
-      <CheckoutHeader />
+    <CheckoutContainer>
+      <CheckoutHeader>
+        <HeaderBlock>
+          <span>Product</span>
+        </HeaderBlock>
+        <HeaderBlock>
+          <span>Description</span>
+        </HeaderBlock>
+        <HeaderBlock>
+          <span>Quantity</span>
+        </HeaderBlock>
+        <HeaderBlock>
+          <span>Price</span>
+        </HeaderBlock>
+        <HeaderBlock>
+          <span>Remove</span>
+        </HeaderBlock>
+      </CheckoutHeader>
       {cartItems.map((cartItem) => (
         <CheckoutItem key={cartItem.id} cartItem={cartItem} />
       ))}
-      <span className="total">{`Total: ${priceTotal}`}</span>
-    </div>
+      <Total>Total: ${cartTotal}</Total>
+    </CheckoutContainer>
   );
 };
 
