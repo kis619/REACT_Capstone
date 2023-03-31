@@ -11,7 +11,7 @@ import { CartContext } from "../../contexts/cart.context";
 import { useContext } from "react";
 
 const CheckoutItem = ({ cartItem }) => {
-  const { cartItems, addItemToCart, removeItemfromCart, clearItemfromCart } =
+  const { addItemToCart, removeItemfromCart, clearItemfromCart } =
     useContext(CartContext);
   const { name, imageUrl, price, quantity } = cartItem;
 
