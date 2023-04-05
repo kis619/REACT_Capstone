@@ -14,8 +14,12 @@ import {
 } from "./navigation.styles";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
 import { signOutStart } from "../../store/user/user.action";
+type NavlinkProps = {
+  title: string,
+  route: string,
+}
 
-const NavLink = ({ title, route }) => {
+const NavLink = ({ title, route }: NavlinkProps) => {
   return <NavigationLink to={route}>{title}</NavigationLink>;
 };
 
