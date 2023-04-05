@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { signUpStart } from "../../store/user/user.action";
 import Button from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
+import { AuthError, AuthErrorCodes } from "firebase/auth";
 
 import "./sign-up-form.styles.scss";
 const defaultFormFields = {
@@ -16,7 +17,7 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
   const dispatch = useDispatch();
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
@@ -25,7 +26,7 @@ const SignUpForm = () => {
     setFormFields(defaultFormFields);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (password !== confirmPassword) {
       alert("Passwords do not match");
@@ -35,11 +36,10 @@ const SignUpForm = () => {
       dispatch(signUpStart(email, password, displayName));
       resetFormFields();
     } catch (error) {
-      if (error.code === "auth/email-already-in-use")
+      if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS)
         alert("Email already in use");
-      else if (error.code === "auth/invalid-email")
+      else if ((error as AuthError).code  === AuthErrorCodes.INVALID_EMAIL)
         alert("The provided e-mail is invalid");
-      console.error(error.message);
     }
   };
 
@@ -83,8 +83,7 @@ const SignUpForm = () => {
           value={confirmPassword}
         />
 
-        <Button type="submit" buttonType="">
-          {" "}
+        <Button type="submit">
           Sign Up
         </Button>
       </form>
