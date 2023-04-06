@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
-
+import { OgDataCategory } from "../directory/directory.component";
 import {
   BackgroundImage,
   Body,
   DirectoryItemContainer,
-} from "./directory-item.styles.jsx";
+} from "./directory-item.styles";
 
-const DirectoryItem = ({ category }) => {
+const DirectoryItem = ({category}: { category: OgDataCategory }) => {
   const { imageUrl, title, route } = category;
   const navigate = useNavigate();
 

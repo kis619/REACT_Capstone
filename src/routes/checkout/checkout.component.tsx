@@ -2,8 +2,9 @@ import { useSelector } from "react-redux";
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
 import { selectCartItems, selectPriceTotal } from "../../store/cart/cart.selector";
 import "./checkout.styless.scss";
+import { CartItem } from "../../store/cart/cart.types";
 
-const HeaderBlock = ({ name }) => {
+const HeaderBlock = ( {name}: {name: string} ) => {
   return (
     <div className="header-block">
       <span>{name}</span>
@@ -29,7 +30,7 @@ const Checkout = () => {
   return (
     <div className="checkout-container">
       <CheckoutHeader />
-      {cartItems.map((cartItem) => (
+      {cartItems.map((cartItem: CartItem) => (
         <CheckoutItem key={cartItem.id} cartItem={cartItem} />
       ))}
       <span className="total">{`Total: ${priceTotal}`}</span>

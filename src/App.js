@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { getCurrentUser } from "./utils/firebase/firebase.utils";
 import Home from "./routes/home/home.component";
 import { Routes, Route } from "react-router-dom";
 import Navigation from "./routes/navigation/navigation.component";
